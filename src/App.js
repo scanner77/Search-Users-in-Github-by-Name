@@ -33,19 +33,24 @@ const Github = axios.create({
       this.setState({loading: false})
     }
   } 
+  clearSearch = () => this.setState({users: [], loading:false})
 
   render() {
+
+    const {users, loading} = this.state;
+
     return (
       <div className = "App">
        <Navbar />
        <div>
          <Search 
-          searchUsers = {this.searchUsers}
-          clearSearch = {() => this.setState({users: [], loading:false})}
+          findUser = {this.searchUsers}
+          clearSearch = {this.clearSearch}
+          showClear = {users.length > 0  ? true : false}
          />
         <Users 
-        loading = {this.state.loading}
-        users = {this.state.users}
+        loading = {loading}
+        users = {users}
         />
        </div>
 

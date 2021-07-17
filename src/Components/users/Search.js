@@ -5,18 +5,23 @@ export class Search extends Component {
     state = {
         text: ''
     }
-     handleChange = (event) => this.setState({[event.target.name]: event.target.value})
-    
+     handleChange = (event) => { 
+         this.setState({[event.target.name]: event.target.value})
+         
+     }
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.searchUsers(this.state.text);
-        this.setState({text: ''})
+        this.props.findUser(this.state.text);
+        this.setState({ text: '' })
      }
      static propTypes = {
         searchUsers: PropTypes.func.isRequired,
-        clearSearch: PropTypes.func.isRequired
+        clearSearch: PropTypes.func.isRequired,
+        showClear: PropTypes.bool.isRequired,
       }
     render() {
+
+        const {showClear, clearSearch} = this.props;
         return (
             <div>
                 <form className = "form" onSubmit = {this.handleSubmit}>
@@ -24,7 +29,9 @@ export class Search extends Component {
                 <input type="submit" value="Search" className = "btn btn-dark btn-block" />
                 </form>
                 <br/>
-                <button onClick = {this.props.clearSearch} className = "btn btn-dark btn-block" style ={{width: '500px'}}>Clear Search</button>
+                {showClear &&
+                <button onClick = {clearSearch} className = "btn btn-dark btn-block" style ={{width: '500px'}}>Clear Search</button>
+                }
             </div>
         )
     }
